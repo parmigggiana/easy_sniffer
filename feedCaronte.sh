@@ -19,18 +19,20 @@
 
 set -o nounset                              # Treat unset variables as an error
 
-CHECK_INOTIFY=$(dpkg-query -W -f='${status}' 'inotify-tools')
+CHECK_INOTIFY_DEB=$(dpkg-query -W -f='${status}' 'inotify-tools' 2> /dev/null)
+CHECK_INOTIFY_RPM=$(rpm -qa inotify-tools | sed 's/\([^-]*\)-.*/\1/' 2> /dev/null)
 
-if [[ "$CHECK_INOTIFY" != 'install ok installed' ]]; then
-	echo "Install inotify-tools"
-	exit 1
+if [[ "$CHECK_INOTIFY_DEB" != 'install ok installed' ]] && [[ "$CHECK_INOTIFY_RPM" != 'inotify' ]]; then
+        echo "Install inotify-tools"
+        exit 1
 fi
 
-CHECK_CURL=$(dpkg-query -W -f='${Status}' 'curl')
+CHECK_CURL_DEB=$(dpkg-query -W -f='${Status}' 'curl' 2> /dev/null)
+CHECK_CURL_RPM=$(rpm -qa curl | sed 's/\([^-]*\)-.*/\1/' 2> /dev/null)
 
-if [[ "$CHECK_CURL" != 'install ok installed' ]]; then
-	echo "Install curl"
-	exit 1
+if [[ "$CHECK_CURL_DEB" != 'install ok installed' ]] && [[ "$CHECK_CURL_RPM" != 'curl' ]]; then
+        echo "Install curl"
+        exit 1
 fi
 
 if [[ "$#" -ne 1 ]]; then
