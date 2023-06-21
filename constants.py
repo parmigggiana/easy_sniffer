@@ -14,7 +14,7 @@ SCRIPT_NAME = "script_name"
 
 # --- Premade commands ---
 # https://explainshell.com/explain?cmd=tcpdump+-C++-W+-s0++-Z+-z++-U+-w+
-TCPDUMP_COMMAND = "nohup tcpdump -C {C} -W {W} -s0 -i {i} -Z root -z {z} -U -w {w} not port 22 > /dev/null 2>&1 &"
+TCPDUMP_COMMAND = "nohup tcpdump -C {C} -W {W} -s0 -i {i} -Z root -z {z} -U -w {w} not port 22 and not port 3333 > /dev/null 2>&1 &"
 
 REMOTE_COMMAND = "ssh -oStrictHostKeyChecking=no -i {k} -p {p} {u}@{i} '{c}'"
 RSYNC_COMMAND = 'rsync -avz -e "ssh -oStrictHostKeyChecking=no -i {k} -p {p}" {u}@{i}:{r} {l} 2>/dev/null'
