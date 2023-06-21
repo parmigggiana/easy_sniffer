@@ -1,2 +1,2 @@
 #!/bin/sh
-mv $1 $1.pcap
+mv $1 $(date +%T)_$1.pcap
