@@ -1,2 +1,4 @@
 #!/bin/sh
-mv $1 $(date +%T)_$1.pcap
+basepath=$( echo $1 | sed 's:/[^/]*$::')
+newname=$( echo $1 | sed 's:.*/::')
+mv $1 $basepath/$(date +%H_%M_%S)_$newname.pcap
